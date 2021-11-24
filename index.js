@@ -1,4 +1,3 @@
-// Import necessary modules
 const express = require("express"),
   morgan = require("morgan"),
   bodyParser = require("body-parser"),
@@ -18,24 +17,23 @@ mongoose.connect(process.env.CONNECTION_URI, {
   useUnifiedTopology: true,
 });
 
-// express
 const app = express();
 
 app.use(morgan("common"));
 app.use(express.static("public"));
 app.use(bodyParser.json());
 
-// CORS
+//CORS
 app.use(cors());
-let auth = require("./auth")(app);
 
+let auth = require("./auth")(app);
 const passport = require("passport");
 require("./passport");
 
-// GET requests
+//GET requests
 
 app.get("/", (req, res) => {
-  res.send("Welcome to my Syfy Films database!");
+  res.send("Welcome to the Syfy database!");
 });
 
 //return list of all movies
@@ -54,7 +52,7 @@ app.get(
   }
 );
 
-//return data about a single movie by title
+//return data about a single movie
 app.get(
   "/movies/:Title",
   passport.authenticate("jwt", { session: false }),
@@ -70,7 +68,7 @@ app.get(
   }
 );
 
-//Return data about a specific genre (description) by name
+//Return data about a specific genre
 app.get(
   "/movies/genre/:Name",
   passport.authenticate("jwt", { session: false }),
@@ -102,7 +100,7 @@ app.get(
   }
 );
 
-// Get all users
+//Get all users
 app.get(
   "/users",
   passport.authenticate("jwt", { session: false }),
@@ -128,7 +126,7 @@ app.post(
       "Username contains non alphanumeric characters - not allowed "
     ).isAlphanumeric(),
     check("Password", "Password is required").not().isEmpty(),
-    check("Email", "Email does ont appear to be valid").isEmail(),
+    check("Email", "Email does not appear to be valid").isEmail(),
   ],
   (req, res) => {
     // check the validation object for errors
@@ -183,7 +181,7 @@ app.get(
   }
 );
 
-// update info of a specific user
+//update info of a specific user
 app.put(
   "/users/:Username",
   [
@@ -224,7 +222,7 @@ app.put(
   }
 );
 
-// deregister a user by their username
+//deregister a user by their username
 app.delete(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
@@ -290,13 +288,13 @@ app.delete(
   }
 );
 
-// error handling
+//error handling
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send("Something broke!");
 });
 
-// listen for requests
+//listen for requests
 const port = process.env.PORT || 8080;
 app.listen(port, "0.0.0.0", () => {
   console.log("Listening on Port " + port);
