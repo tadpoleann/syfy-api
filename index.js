@@ -14,7 +14,8 @@ const Movies = Models.Movie;
 const Users = Models.User;
 let allowedOrigins = ["http://localhost:8080", "http://testsite.com"];
 
-mongoose.connect("mongodb://localhost:27017/mySyfyDB", {
+// mongoose.connect('mongodb://localhost:27017/syfyDB', { useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(process.env.CONNECTION_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
