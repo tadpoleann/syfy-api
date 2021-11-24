@@ -12,10 +12,10 @@ const Movies = Models.Movie;
 const Users = Models.User;
 
 // Connect to Mongoose DB
-// mongoose.connect(process.env.CONNECTION_URI, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// });
+mongoose.connect(process.env.CONNECTION_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 const app = express();
 
