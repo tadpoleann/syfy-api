@@ -7,13 +7,14 @@ const Models = require("./models.js");
 const passport = require("passport");
 require("./passport");
 const cors = require("cors");
+const { check, validationResult } = require("express-validator");
 
 // call models from model.js
 const Movies = Models.Movie;
 const Users = Models.User;
 let allowedOrigins = ["http://localhost:8080", "http://testsite.com"];
 
-mongoose.connect("mongodb://localhost:27017/mySyfyDB", {
+mongoose.connect("mongodb://localhost:27017/syfyDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -130,14 +131,16 @@ app.post(
   "/users",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    Users.findOne({ Username: req.body.Username })
+    let hashedPassword = Users.hashPassword(req.body.Password);
+    Users.findOne({ Username: req.body.Username }) // Search to see if a user with the requested username already exists
       .then((user) => {
         if (user) {
+          //If the user is found, send a response that it already exists
           return res.status(400).send(req.body.Username + " already exists");
         } else {
           Users.create({
             Username: req.body.Username,
-            Password: req.body.Password,
+            Password: hashedPassword,
             Email: req.body.Email,
             Birthday: req.body.Birthday,
           })
