@@ -169,12 +169,6 @@ let directors = [
       "Declan O'Brien is an American writer and director. O'Brien is known as the director of three films in the Wrong Turn series (2009–2012). O'Brien is the president of Utopia Pictures & Television",
     birthday: "January 01, 1962",
   },
-  {
-    name: "Mike Mendez",
-    biography:
-      'Mike Mendez was in the backyard making movies since the age of 10. At the age of 23, Mike made his first feature film "Killers," which was accepted into the Sundance Film Festival in 1997. The film was picked up by Alpine Pictures, who distributed the feature in the U.S. The film also received a worldwide theatrical release.',
-    birthday: "1973",
-  },
 ];
 //genres
 let genres = [
@@ -251,7 +245,7 @@ app.get("/genres", (req, res) => {
   res.json(genres);
 });
 
-//Return data about a specific genre (description) by name
+//Return data about a specific genre by name
 app.get("/genres/:genre", (req, res) => {
   res.json(
     genres.find((category) => {
@@ -311,15 +305,6 @@ app.get("/filmstars/:name", (req, res) => {
       return star.name === req.params.name;
     })
   );
-});
-
-//allow users to create a to-watch list
-app.post("/users/:username/watchlist", (req, res) => {
-  res.send("Added to watchlist");
-});
-
-app.delete("/users/:username/watchlist/:title", (req, res) => {
-  res.send("Deleted from watchlist");
 });
 
 //serve "documentation.html" from "/public" folder

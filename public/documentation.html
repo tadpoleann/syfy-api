@@ -4,15 +4,300 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>movies api</title>
+    <title>syfy api documentation</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        background-color: rgb(24, 21, 21);
+        color: rgba(245, 245, 245, 0.911);
+      }
+      header {
+        text-align: center;
+      }
+      /* Center tables for demo */
+      table {
+        margin: 0 auto;
+      }
+
+      /* Default Table Style */
+      table {
+        color: rgba(245, 245, 245, 0.932);
+        background-color: rgb(24, 21, 21);
+        font-size: 16px;
+        border-collapse: collapse;
+      }
+      table thead th,
+      table th {
+        background-color: rgb(24, 21, 21);
+        color: #dbdd62e5;
+      }
+
+      table th,
+      table td {
+        padding: 0.5em;
+        border: 1px solid #fdffa2a9;
+      }
+      .red {
+        color: rgb(255, 75, 75);
+      }
+    </style>
   </head>
   <body>
-    <h1>Documentation</h1>
-    <p>
-      To build the server-side component of a “movies” web application. The web
-      application will provide users with access to information about different
-      movies, directors, and genres. Users will be able to sign up, update their
-      personal information, and create a list of their favorite movies.
-    </p>
+    <header>
+      <h1>syfy API Documentation</h1>
+    </header>
+    <main>
+      <h2>Overview</h2>
+      <p>
+        The syfy API allows movie enthusiasts to read information about
+        different movies. Users will be able to sign up, update their personal
+        information, and create a list of their favorite movies.
+      </p>
+      <h2>Design Criteria</h2>
+      <h3>User Stories</h3>
+      <ul>
+        <li>
+          As a user, I want to be able to receive information on movies,
+          directors, and genres so that I can learn more about movies I’ve
+          watched or am interested in.
+        </li>
+        <li>
+          As a user, I want to be able to create a profile so I can save data
+          about my favorite movies.
+        </li>
+      </ul>
+      <h2>Essential Features</h2>
+      <ul>
+        <li>Return a list of ALL movies to the user</li>
+        <li>
+          Return data (description, genre, director, image URL, whether it’s
+          featured or not) about a single movie by title to the user
+        </li>
+        <li>
+          Return data about a genre (description) by name/title (e.g., “Horror”)
+        </li>
+        <li>
+          Return data about a director (bio, birth year, death year) by name
+        </li>
+        <li>Allow new users to register</li>
+        <li>
+          Allow users to update their info (username, password, email, DoB)
+        </li>
+        <li>Allow users to add a movie to their list of favorites</li>
+        <li>Allow users to remove a movie from their list of favorites</li>
+        <li>Allow existing users to deregister</li>
+        <li>Allow users to see which actors star in which movies</li>
+        <li>
+          Allow users to view more information about different movies, such as
+          the release date and the movie rating
+        </li>
+      </ul>
+
+      <h3 class="centerText">Endpoints for REST API</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>URL</th>
+            <th>HTTP method</th>
+            <th>Query Parameters</th>
+            <th>Request body data format</th>
+            <th>Response body data format</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Return a list of all movies to user</td>
+            <td>/movies</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>None</td>
+            <td>A JSON object that holds the data about all of the movies.</td>
+          </tr>
+
+          <tr>
+            <td>Return data about a single movie by title to user</td>
+            <td>/movies/[Title]</td>
+            <td>GET</td>
+            <td>/movies/:title</td>
+            <td>None</td>
+            <td>
+              A JSON object that holds data about about the single requested
+              movie.
+              <span class="red">
+                <br />
+                Example: <br />
+                {<br />
+                "title": "Sharknado",<br />
+                "description": "Sharknado is a ...", <br />
+                "director": "Anthony C. Ferrante",<br />
+                "genres": "Sharks",<br />
+                "image": "https://m.media-amazon.com/images.." <br />
+                }
+              </span>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Return data about all genres</td>
+            <td>/genres</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>None</td>
+            <td>A JSON object that holds data about all the genres.</td>
+          </tr>
+
+          <tr>
+            <td>
+              Return data about a genre (description) by name (e.g., “Horror”)
+            </td>
+            <td>/genres/[Genre]</td>
+            <td>GET</td>
+            <td>/genres/:genre</td>
+            <td>None</td>
+            <td>
+              A JSON object that has data about a specific genre.
+              <span class="red">
+                <br />
+                Example: <br />
+                {<br />
+                "genre": "Sharks",<br />
+                "description": "A movie with a lot of sharks."<br />
+                }<br />
+              </span>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Return data about all directors.</td>
+            <td>/directors</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>None</td>
+            <td>A JSON object that has data about all the directors.</td>
+          </tr>
+
+          <tr>
+            <td>
+              Return data about a director (bio, birth year, death year) by
+              name.
+            </td>
+            <td>/directors/[Name]</td>
+            <td>GET</td>
+            <td>/directors/:name</td>
+            <td>None</td>
+            <td>
+              A JSON object that has data about a movie's director.
+              <br />
+              <span class="red">
+                Example:<br />
+                {<br />
+                "name": "Anthony C. Ferrante",<br />
+                "biography": "an American film director, producer, and
+                writer...",
+                <br />
+                "birthday": "January 01, 1962"<br />
+                }<br />
+              </span>
+            </td>
+          </tr>
+
+          <tr>
+            <td>let users view information about different actors</td>
+            <td>/filmstars</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>None</td>
+            <td>A JSON object that has data about film stars.</td>
+          </tr>
+
+          <tr>
+            <td>
+              Allow users to see which actors and actresses star in which movies
+            </td>
+            <td>/filmstars/[Name]</td>
+            <td>GET</td>
+            <td>/filmstars/:name</td>
+            <td>None</td>
+            <td>A JSON object that returns data about a specific film star.</td>
+          </tr>
+
+          <tr>
+            <td>Allow users to add a movie to their list of favorites</td>
+            <td>/users/[Username]/favorites</td>
+            <td>POST</td>
+            <td>/users/:username/favorites</td>
+            <td>
+              A JSON object that has data about the movie to add to favorites.
+            </td>
+            <td>
+              A text message indicating that the movie has been added to the
+              user's favorites.
+            </td>
+          </tr>
+
+          <tr>
+            <td>Allow users to remove a movie from their list of favorites</td>
+            <td>/users/[Username]/favorites/[Title]</td>
+            <td>DELETE</td>
+            <td>/users/:username/favorites/:title</td>
+            <td>None</td>
+            <td>
+              A text message indicating that a movie has been removed from the
+              user's favorites.
+            </td>
+          </tr>
+
+          <tr>
+            <td>Allow new users to register</td>
+            <td>/users</td>
+            <td>POST</td>
+            <td>None</td>
+            <td>
+              A JSON object holding data about a user to register.
+              <br />
+              <span class="red">
+                Example: <br />
+                {<br />
+                "name": "user1",<br />
+                "birthday": "January 1, 1905"<br />
+                }<br />
+              </span>
+            </td>
+            <td>
+              A text message response indicating that a user has been
+              registered.
+            </td>
+          </tr>
+
+          <tr>
+            <td>Allow users to update their user info</td>
+            <td>/users/[Username]</td>
+            <td>PUT</td>
+            <td>/users/:username</td>
+            <td>None</td>
+            <td>
+              A text message indicating that the user has been successfully
+              updated.
+            </td>
+          </tr>
+
+          <tr>
+            <td>Allow existing users to deregister</td>
+            <td>/users/[Username]</td>
+            <td>DELETE</td>
+            <td>/users/:username</td>
+            <td>None</td>
+            <td>
+              A text message indicating that an existing user has been
+              deregistered.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
   </body>
 </html>
