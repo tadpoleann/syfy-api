@@ -1,1 +1,6 @@
 node_modules/
+
+mongodbData.json
+syfymovies.json
+syfygenres.json
+syfyusers.json

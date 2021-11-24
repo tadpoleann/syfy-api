@@ -39,12 +39,13 @@ let films = [
       "https://m.media-amazon.com/images/M/MV5BNjYxYjhiOGQtY2Y0OC00ZDlkLWEwNTAtZjA3OGYwZWQ5YTBmXkEyXkFqcGdeQXVyMzA1MjMyNTY@._V1_.jpg",
   },
   {
-    title: "Toxic Shark",
-    description: "An acid-spewing infected shark stalks an island retreat.",
-    director: "Cole Sharpe",
-    genres: "Sharks",
+    title: "Animal",
+    description:
+      "When plans for a weekend vacation hit a dead end, a group of close-knit friends find themselves stranded in unfamiliar territory, pursued by a menacing, blood thirsty predator.",
+    director: "Brett Simmons",
+    genres: "Horror",
     image:
-      "https://m.media-amazon.com/images/M/MV5BOWNjMDNhOGMtZjExZi00NWYzLTk4ZTktZmJhNTE3YjNkZWI4XkEyXkFqcGdeQXVyNzIzMzMwNzY@._V1_.jpg",
+      "https://m.media-amazon.com/images/M/MV5BNzU1MjAyOTYwMl5BMl5BanBnXkFtZTgwODQyOTQ2MTE@._V1_.jpg",
   },
   {
     title: "Mega Shark Versus Mecha Shark",
@@ -112,11 +113,11 @@ let films = [
   {
     title: "Night of the Living Dead",
     description:
-      "A group of people hide from bloodthirsty zombies in a farmhouse.",
+      "A ragtag group of Pennsylvanians barricade themselves in an old farmhouse to remain safe from a horde of flesh-eating ghouls that are ravaging the East Coast of the United States.",
     director: "George A. Romero",
     genres: "Horror",
     image:
-      "https://m.media-amazon.com/images/M/MV5BN2FhMjIzMjAtNzEwOS00ZTA2LTk4YTQtMDViMjZiY2UzYTI4XkEyXkFqcGdeQXVyNTM3MDMyMDQ@._V1_.jpg",
+      "https://m.media-amazon.com/images/M/MV5BMzRmN2E1ZDUtZDc2ZC00ZmI3LTkwOTctNzE2ZDIzMGJiMTYzXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg",
   },
   {
     title: "Day of Reckoning",
@@ -137,13 +138,13 @@ let films = [
       "https://m.media-amazon.com/images/M/MV5BYjJkYTU3ZmItMzVlZS00NGMxLTg3MGYtODVmYjE5M2YzOTdkXkEyXkFqcGdeQXVyNDUxNjc5NjY@._V1_.jpg",
   },
   {
-    title: "Little Shop of Horrors",
+    title: "Locusts: The 8th Plague",
     description:
-      "A clumsy young man nurtures a plant and discovers that it's carnivorous, forcing him to kill to feed it.",
-    director: "Frank Oz",
+      "Top-secret lab experiments have resulted in genetically-engineered locusts that devour the flesh from any humans in their path. When the swarm escapes, a determined researcher heads a team to stop the menace before it consumes the world.",
+    director: "Ian Gilmour",
     genres: "Creature Features",
     image:
-      "https://m.media-amazon.com/images/M/MV5BYzUxZDI3MjktZmM4YS00MzdjLWE5MzctMmI4M2ViMDgxMmUzXkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_.jpg",
+      "https://m.media-amazon.com/images/M/MV5BMTk1Mzc5MDg5NF5BMl5BanBnXkFtZTcwMzI5ODY3Mw@@._V1_.jpg",
   },
   {
     title: "Rock Monster",
@@ -175,7 +176,7 @@ let genres = [
   {
     genre: "Creature Features",
     description:
-      " A horror film in which one or more monsters plays a prominent role. 'Godzilla' is one of the classic creature features.",
+      "A horror film in which one or more monsters plays a prominent role. 'Godzilla' is one of the classic creature features.",
   },
   {
     genre: "Horror",
