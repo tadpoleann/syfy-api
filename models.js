@@ -25,18 +25,10 @@ let userSchema = mongoose.Schema({
   FavoriteMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: "Movie" }],
 });
 
-let genreSchema = mongoose.Schema({
-  Genre: { type: String, required: true },
-  Password: { type: String, required: true },
-  Movies: [{ type: mongoose.Schema.Types.ObjectId, ref: "Movie" }],
-});
-
 // creation of the models
 let Movie = mongoose.model("Movie", movieSchema);
 let User = mongoose.model("User", userSchema);
-let Genre = mongoose.model("Genre", genreSchema);
 
 // export the models
 module.exports.Movie = Movie;
 module.exports.User = User;
-module.exports.Genre = Genre;
