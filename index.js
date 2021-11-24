@@ -21,6 +21,7 @@ mongoose.connect(process.env.CONNECTION_URI, {
 // express
 const app = express();
 
+app.use(passport.initialize());
 app.use(morgan("common"));
 app.use(express.static("public"));
 app.use(bodyParser.json());
