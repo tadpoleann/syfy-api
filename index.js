@@ -25,9 +25,10 @@ app.use(bodyParser.json());
 
 //CORS
 app.use(cors());
-let auth = require("./auth")(app);
 
+let auth = require("./auth")(app);
 const passport = require("passport");
+app.use(passport.initialize());
 require("./passport");
 
 //GET requests
