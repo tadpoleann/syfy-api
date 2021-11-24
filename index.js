@@ -33,7 +33,7 @@ require("./passport");
 //GET requests
 
 app.get("/", (req, res) => {
-  res.send("Welcome to my Syfy Films database!");
+  res.send("Welcome to the Syfy database!");
 });
 
 //return list of all movies
