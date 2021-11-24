@@ -3,7 +3,7 @@ const passport = require("passport"),
   Models = require("./models.js"),
   passportJWT = require("passport-jwt");
 
-let Users = Models.User,
+const Users = Models.User,
   JWTStrategy = passportJWT.Strategy,
   ExtractJWT = passportJWT.ExtractJwt;
 
@@ -28,6 +28,11 @@ passport.use(
           });
         }
 
+        if (!user.validatePassword(password)) {
+          console.log("Incorrect Password");
+          return callback(null, false, { message: "Incorrect password." });
+        }
+
         console.log("Finished.");
         return callback(null, user);
       });
@@ -42,7 +47,7 @@ passport.use(
       // bearer token
       jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
       // "secret" key to verify the signature of the JWT
-      secretOrKey: "your_jwt_secret",
+      secretOrKey: "my_secret",
     },
     (jwtPayload, callback) => {
       return Users.findById(jwtPayload._id)

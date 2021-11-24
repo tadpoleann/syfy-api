@@ -1,34 +1,37 @@
-const express = require("express");
-const morgan = require("morgan");
-const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
-// const uuid = require('uuid');
-const Models = require("./models.js");
+const express = require("express"),
+  morgan = require("morgan"),
+  bodyParser = require("body-parser"),
+  uuid = require("uuid"),
+  cors = require("cors");
 
-// call models from model.js
+const { check, validationResult } = require("express-validator");
+// Import DB models
+const mongoose = require("mongoose"),
+  Models = require("./models.js");
 const Movies = Models.Movie;
 const Users = Models.User;
 
-mongoose.connect("mongodb://localhost:27017/syfyDB", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+// Connect to Mongoose DB
+// mongoose.connect(process.env.CONNECTION_URI, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
 
 const app = express();
 
-//log requests to terminal
 app.use(morgan("common"));
-//serve "documentation.html" from "/public" folder
 app.use(express.static("public"));
 app.use(bodyParser.json());
 
-let auth = require("./auth.js")(app);
+//CORS
+app.use(cors());
+let auth = require("./auth")(app);
 
 const passport = require("passport");
 require("./passport");
 
-// GET requests
-//express route located at the endpoint "/"
+//GET requests
+
 app.get("/", (req, res) => {
   res.send("Welcome to my Syfy Films database!");
 });
@@ -49,7 +52,7 @@ app.get(
   }
 );
 
-//return data about a single movie by title
+//return data about a single movie
 app.get(
   "/movies/:Title",
   passport.authenticate("jwt", { session: false }),
@@ -65,7 +68,7 @@ app.get(
   }
 );
 
-//Return data about a genre by name
+//Return data about a specific genre
 app.get(
   "/movies/genre/:Name",
   passport.authenticate("jwt", { session: false }),
@@ -97,7 +100,7 @@ app.get(
   }
 );
 
-// Get all users
+//Get all users
 app.get(
   "/users",
   passport.authenticate("jwt", { session: false }),
@@ -116,16 +119,33 @@ app.get(
 //allow new users to register
 app.post(
   "/users",
-  passport.authenticate("jwt", { session: false }),
+  [
+    check("Username", "Username is required").isLength({ min: 5 }),
+    check(
+      "Username",
+      "Username contains non alphanumeric characters - not allowed "
+    ).isAlphanumeric(),
+    check("Password", "Password is required").not().isEmpty(),
+    check("Email", "Email does not appear to be valid").isEmail(),
+  ],
   (req, res) => {
-    Users.findOne({ Username: req.body.Username })
+    // check the validation object for errors
+    let errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+
+    let hashedPassword = Users.hashPassword(req.body.Password);
+    Users.findOne({ Username: req.body.Username }) // Search to see if a user with the requested username already exists
       .then((user) => {
         if (user) {
+          //If the user is found, send a response that it already exists
           return res.status(400).send(req.body.Username + " already exists");
         } else {
           Users.create({
             Username: req.body.Username,
-            Password: req.body.Password,
+            Password: hashedPassword,
             Email: req.body.Email,
             Birthday: req.body.Birthday,
           })
@@ -161,17 +181,30 @@ app.get(
   }
 );
 
-// update info of a specific user
+//update info of a specific user
 app.put(
   "/users/:Username",
-  passport.authenticate("jwt", { session: false }),
+  [
+    check("Username", "Username is required").isLength({ min: 5 }),
+    check(
+      "Username",
+      "Username contains non alphanumeric characters - not allowed."
+    ).isAlphanumeric(),
+    check("Password", "Password is required.").not().isEmpty(),
+    check("Email", "Email does not appear to be valid").isEmail(),
+  ],
   (req, res) => {
+    let errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+    let hashedPassword = Users.hashPassword(req.body.Password);
     Users.findOneAndUpdate(
       { Username: req.params.Username },
       {
         $set: {
           Username: req.body.Username,
-          Password: req.body.Password,
+          Password: hashedPassword,
           Email: req.body.Email,
           Birthday: req.body.Birthday,
         },
@@ -189,7 +222,7 @@ app.put(
   }
 );
 
-// deregister a user by their username
+//deregister a user by their username
 app.delete(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
@@ -209,7 +242,7 @@ app.delete(
   }
 );
 
-//allow users to add a movie to their favorites
+//allow users to add a movie to their list favorites
 app.post(
   "/users/:Username/Movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
@@ -232,7 +265,7 @@ app.post(
   }
 );
 
-//Allow users to remove a movie from their favorites
+//Allow users to remove a movie from their list of favorites
 app.delete(
   "/users/:Username/Movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
@@ -255,13 +288,14 @@ app.delete(
   }
 );
 
-// error handling
+//error handling
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send("Something broke!");
 });
 
-// listen for requests
-app.listen(8080, () => {
-  console.log("Your app is listening on port 8080.");
+//listen for requests
+const port = process.env.PORT || 8080;
+app.listen(port, "0.0.0.0", () => {
+  console.log("Listening on Port " + port);
 });
