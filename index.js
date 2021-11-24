@@ -293,12 +293,12 @@ app.delete("/users/:username/favorites/:title", (req, res) => {
   res.send("Movie has been deleted from your favorites.");
 });
 
-//allow users to view information about different actors
+//allow users to view information about the cast
 app.get("/filmstars", (req, res) => {
   res.json(filmStars);
 });
 
-//allow users to see which actors star in which movies
+//allow users to see information about specific cast member
 app.get("/filmstars/:name", (req, res) => {
   res.json(
     filmStars.find((star) => {
