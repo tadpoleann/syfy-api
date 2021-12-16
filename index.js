@@ -31,13 +31,16 @@ const passport = require("passport");
 app.use(passport.initialize());
 require("./passport");
 
-//GET requests
-
+/**
+ * API call to homepage
+ */
 app.get("/", (req, res) => {
   res.send("Welcome to the Syfy database!");
 });
 
-//return list of all movies
+/**
+ * API call that returns information about all movies
+ */
 app.get(
   "/movies",
   passport.authenticate("jwt", { session: false }),
@@ -53,7 +56,9 @@ app.get(
   }
 );
 
-//return data about a single movie
+/**
+ * API call that returns data about a single movie by title
+ */
 app.get(
   "/movies/:Title",
   passport.authenticate("jwt", { session: false }),
@@ -69,7 +74,9 @@ app.get(
   }
 );
 
-//Return data about a specific genre
+/**
+ * API call that returns information about a genre
+ */
 app.get(
   "/movies/genre/:Name",
   passport.authenticate("jwt", { session: false }),
@@ -85,7 +92,9 @@ app.get(
   }
 );
 
-//Return data about a director by name
+/**
+ * API call that returns information about a director by name
+ */
 app.get(
   "/movies/director/:Name",
   passport.authenticate("jwt", { session: false }),
@@ -101,7 +110,9 @@ app.get(
   }
 );
 
-//Get all users
+/**
+ * API call to return a list of all users
+ */
 app.get(
   "/users",
   passport.authenticate("jwt", { session: false }),
@@ -117,7 +128,9 @@ app.get(
   }
 );
 
-//allow new users to register
+/**
+ * API call to create new user
+ */
 app.post(
   "/users",
   [
@@ -166,7 +179,9 @@ app.post(
   }
 );
 
-// Get information about a specific user based on their username
+/**
+ * API call to get information about a specific user based on their username
+ */
 app.get(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
@@ -182,7 +197,9 @@ app.get(
   }
 );
 
-//update info of a specific user
+/**
+ * API call to update a user's informatoin
+ */
 app.put(
   "/users/:Username",
   [
@@ -223,7 +240,9 @@ app.put(
   }
 );
 
-//deregister a user by their username
+/**
+ * API call to delete user's account
+ */
 app.delete(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
@@ -243,7 +262,9 @@ app.delete(
   }
 );
 
-//allow users to add a movie to their list favorites
+/**
+ * API call to add movie to user's list of favorites
+ */
 app.post(
   "/users/:Username/Movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
@@ -266,7 +287,9 @@ app.post(
   }
 );
 
-//Allow users to remove a movie from their list of favorites
+/**
+ * API call to remove movie from a user's list of favorites
+ */
 app.delete(
   "/users/:Username/Movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
