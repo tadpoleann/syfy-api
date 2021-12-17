@@ -83,6 +83,10 @@ app.get(
 
 /**
  * API call that returns information about a genre
+ * @method GET
+ * @param {string} endpoint - Endpoint to fetch specific genre details
+ * @param {string} name - genre name required
+ * @returns {object} - Returns genre details as an object
  */
 app.get(
   "/movies/genre/:Name",
@@ -101,6 +105,10 @@ app.get(
 
 /**
  * API call that returns information about a director by name
+ * @method GET
+ * @param {string} endpoint - Endpoint to fetch a specific director
+ * @param {string} name - name required
+ * @returns {object} - Returns director details as an object
  */
 app.get(
   "/movies/director/:Name",
