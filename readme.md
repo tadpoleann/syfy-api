@@ -11,15 +11,15 @@
 
 <h3 id = "overview">Overview</h3>
 
-A Restful API that allows users to make requests to a Syfy movies database and receive responses from the server-side. The endpoints are described in https://nameless-atoll-42754.herokuapp.com/documentation.html
+A Restful API that allows users to make requests to a Syfy database and receive responses from the server-side. The endpoints are described in https://nameless-atoll-42754.herokuapp.com/documentation.html
 
 <h3 id = "description">Description</h3>
 
-This project is the server-side component for an application called "mySyfy Movies" that stores data about movies. It consists of a well-designed REST API and architected database built using **Javascript**,**Node.js**, **Express**, and **MongoDB**.
+This project is the server-side component for an application called "Syfy" that stores data about movies. It consists of a well-designed REST API and architected database built using **Javascript**,**Node.js**, **Express**, and **MongoDB**.
 
 The REST API is hosted on Heroku and accessed via commonly used HTTP methods like GET and POST. Similar methods (CRUD) will be used to retrieve data from the database and store that data in a non-relational way.
 
-It is used by the mySyfy Movies client-side to give users access to information about different Syfy movies and the directors and genres. Users will be able to sign up and create a list of their favorite movies.
+It is used by the SYFY client-side to give users access to information about different Syfy movies and the directors and genres. Users will be able to sign up and create a list of their favorite movies.
 
 <h3 id = "essential-features">Essential Features</h3>
 
